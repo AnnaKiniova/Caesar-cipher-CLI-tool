@@ -3,7 +3,7 @@ const command = new Command();
 command.version("0.0.1");
 
 let inFile;
-let outFile; // "./out.txt";
+let outFile;
 let action;
 let amount;
 
@@ -35,11 +35,6 @@ if (command.action == "encode" || command.action == "decode") {
   process.stderr.write("error");
   return;
 }
-
-console.log(amount);
-console.log(inFile);
-console.log(outFile);
-console.log(action);
 
 module.exports.amount = amount;
 module.exports.inFile = inFile;

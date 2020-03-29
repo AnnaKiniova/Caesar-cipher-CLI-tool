@@ -1,39 +1,31 @@
-//const stream = require("stream");
-//const parseArgs = require("minimist");
 const ceasarChipher = require("./crypto.js");
 const cliData = require("./cli_input.js");
+const { promisify } = require("util");
 
 const fs = require("fs");
-const { pipeline } = require("stream");
+const stream = require("stream");
+const pipeline = promisify(stream.pipeline);
+
+const readStream = cliData.inFile
+  ? fs.createReadStream(cliData.inFile, "utf-8").on("error", () => {
+      process.stderr.write("can't reach specified input file");
+      process.exit(1);
+    })
+  : process.stdin;
+
+const writeStream = cliData.outFile
+  ? fs
+      .createWriteStream(cliData.outFile, {
+        flags: "a",
+        encoding: "utf-8"
+      })
+      .on("error", () => {
+        process.stderr.write("can't reach specified output file");
+        process.exit(1);
+      })
+  : process.stdout;
 
 console.log(cliData.inFile);
-pipeline(
-  //   // fs.createReadStream(cliData.inFile, "utf-8") : process.stdin, //ead(),
-  fs.createReadStream(cliData.inFile, "utf-8"),
-  ceasarChipher,
-  fs.createWriteStream(cliData.outFile, {
-    flags: "a",
-    encoding: "utf-8"
-  }),
-
-  // cliData.outFile
-  //   ? fs.createWriteStream(cliData.outFile, {
-  //       flags: "a",
-  //       encoding: "utf-8"
-  //     })
-  //   : process.stdout, //.write(),
-  //process.stdout,
-
-  err => {
-    if (err) {
-      process.stderr.write("pipeline failed");
-      process.exit(1);
-    } else {
-      process.stdout.write("pipeline went ok");
-    }
-  }
-);
-
-// inStream.pipe(outStream).on("error", () => {
-//   new Error("file was not written");
-// });
+pipeline(readStream, ceasarChipher, writeStream)
+  .then(() => process.stdout.write("pipeline went ok"))
+  .catch(() => process.stderr.write("pipeline failed"));
