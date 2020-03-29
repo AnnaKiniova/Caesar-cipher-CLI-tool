@@ -11,7 +11,7 @@ const ceasarChipher = new Transform({
       if (cliData.action === "encode") {
         step = cliData.amount;
       } else if (cliData.action === "decode") {
-        step = 26 - cliData.amount;
+        step = 26 - (cliData.amount % 26);
       }
 
       if (element >= 65 && element <= 90) {

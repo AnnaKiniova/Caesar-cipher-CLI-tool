@@ -25,7 +25,6 @@ const writeStream = cliData.outFile
       })
   : process.stdout;
 
-console.log(cliData.inFile);
 pipeline(readStream, ceasarChipher, writeStream)
   .then(() => process.stdout.write("pipeline went ok"))
   .catch(() => process.stderr.write("pipeline failed"));
