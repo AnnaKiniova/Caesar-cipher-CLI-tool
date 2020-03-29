@@ -1,14 +1,14 @@
 **Запуск осуществляется по команде: node ceasar_cli**
 
 Параметры:
--s, --shift: a shift - обязательный
--i, --input: an input file
--o, --output: an output file
--a, --action: an action encode/decode- - обязательный
+- -s, --shift: a shift - обязательный
+- -i, --input: an input file
+- -o, --output: an output file
+- -a, --action: an action encode/decode- - обязательный
 
 **Примеры для проверки:**
-node ceasar_cli -a encode -s 7 -i "in.txt" -o "out.txt"
-node ceasar_cli --action decode --shift 7 --input "out.txt" --output "in.txt"
+- node ceasar_cli -a encode -s 7 -i "in.txt" -o "out.txt"
+- node ceasar_cli --action decode --shift 7 --input "out.txt" --output "in.txt"
 
 - ссылка на задание: https://github.com/rolling-scopes-school/nodejs-course-template/blob/master/TASKS.md
 - deadline: Sunday, March 29, 2020 23:59
