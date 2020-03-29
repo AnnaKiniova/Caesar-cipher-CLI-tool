@@ -1,40 +1,35 @@
 //const stream = require("stream");
 //const parseArgs = require("minimist");
 const ceasarChipher = require("./crypto.js");
+const cliData = require("./cli_input.js");
 
 const fs = require("fs");
 const { pipeline } = require("stream");
 
-//const zlib = require("zlib");
-
-const inFile = "./in.txt";
-const outFile = "./out.txt";
-
-//const inStream = fs.createReadStream("./in.txt");
-//const outStream = fs.createWriteStream("./out.txt");
-// inStream.on("data", chunk => {
-//   console.log(chunk.length);
-// });
-// stream.on("test", () => {
-//   return "test";
-// });
-
+console.log(cliData.inFile);
 pipeline(
-  fs.createReadStream(inFile, "utf-8"),
-  //   zlib.createGzip(),
-  //test(),
-  //fs.createWriteStream("./out.txt", "utf-8"),
+  //   // fs.createReadStream(cliData.inFile, "utf-8") : process.stdin, //ead(),
+  fs.createReadStream(cliData.inFile, "utf-8"),
   ceasarChipher,
-  fs.createWriteStream("./out.txt", {
+  fs.createWriteStream(cliData.outFile, {
     flags: "a",
     encoding: "utf-8"
   }),
+
+  // cliData.outFile
+  //   ? fs.createWriteStream(cliData.outFile, {
+  //       flags: "a",
+  //       encoding: "utf-8"
+  //     })
+  //   : process.stdout, //.write(),
   //process.stdout,
+
   err => {
     if (err) {
-      process.stderr("pipeline failed");
+      process.stderr.write("pipeline failed");
+      process.exit(1);
     } else {
-      console.log("pipeline went ok");
+      process.stdout.write("pipeline went ok");
     }
   }
 );
