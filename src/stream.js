@@ -25,8 +25,11 @@ pipeline(
   //test(),
   //fs.createWriteStream("./out.txt", "utf-8"),
   ceasarChipher,
-  //fs.createWriteStream("./out.txt", "utf-8"),
-  process.stdout,
+  fs.createWriteStream("./out.txt", {
+    flags: "a",
+    encoding: "utf-8"
+  }),
+  //process.stdout,
   err => {
     if (err) {
       process.stderr("pipeline failed");
