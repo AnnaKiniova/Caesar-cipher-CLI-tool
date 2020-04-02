@@ -1,12 +1,16 @@
 **Запуск осуществляется по команде: node ceasar_cli**
 
+В папке отсутствовал package.json, для удобства проверки следующими студентами, уже после дедлайна закинула в папку файл. Учитывайте, пожалуйста, при выставлении баллов
+
 Параметры:
+
 - -s, --shift: a shift - обязательный
 - -i, --input: an input file
 - -o, --output: an output file
 - -a, --action: an action encode/decode- - обязательный
 
 **Примеры для проверки:**
+
 - node ceasar_cli -a encode -s 7 -i "in.txt" -o "out.txt"
 - node ceasar_cli --action decode --shift 7 --input "out.txt" --output "in.txt"
 
